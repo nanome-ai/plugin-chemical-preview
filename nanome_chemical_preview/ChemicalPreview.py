@@ -19,11 +19,11 @@ class ChemicalPreview(nanome.PluginInstance):
         self.integration.generate_molecule_image = self.generate_images
 
     def generate_images(self, request):
-        ligand_list = request.get_args()
-        images = [self.generate_image(ligand) for ligand in ligand_list]
+        ligand_list, resolution = request.get_args()
+        images = [self.generate_image(ligand, resolution) for ligand in ligand_list]
         request.send_response(images)
 
-    def generate_image(self, complex):
+    def generate_image(self, complex, resolution):
         complex.io.to_sdf(self.temp_sdf.name)
         try:
             mol = Chem.SDMolSupplier(self.temp_sdf.name)[0]
@@ -37,7 +37,8 @@ class ChemicalPreview(nanome.PluginInstance):
         AllChem.Compute2DCoords(mol)
         mol = Draw.rdMolDraw2D.PrepareMolForDrawing(mol)
 
-        drawer = Draw.rdMolDraw2D.MolDraw2DSVG(256, 192)
+        width, height = resolution
+        drawer = Draw.rdMolDraw2D.MolDraw2DSVG(width, height)
         drawer.drawOptions().additionalAtomLabelPadding = 0.3
         drawer.DrawMolecule(mol)
         drawer.FinishDrawing()
@@ -45,7 +46,7 @@ class ChemicalPreview(nanome.PluginInstance):
         svg = svg.replace('stroke-linecap:butt', 'stroke-linecap:round')
 
         path = tempfile.NamedTemporaryFile(delete=False, suffix='.png', dir=self.temp_dir.name).name
-        svg2png(bytestring=svg, write_to=path, output_width=256*2, output_height=192*2)
+        svg2png(bytestring=svg, write_to=path, output_width=width, output_height=height)
 
         with open(path, 'rb') as f:
             image = f.read()

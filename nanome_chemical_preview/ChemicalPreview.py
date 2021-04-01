@@ -56,7 +56,7 @@ class ChemicalPreview(nanome.PluginInstance):
 def main():
     plugin = nanome.Plugin('2D Chemical Preview', 'A Nanome Plugin to generate 2D images of molecules using RDKit', 'Molecule Image', False)
     plugin.set_plugin_class(ChemicalPreview)
-    plugin.run('127.0.0.1', 8888)
+    plugin.run()
 
 if __name__ == '__main__':
     main()

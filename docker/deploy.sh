@@ -1,12 +1,16 @@
 #!/bin/bash
 
-if [ -n "$(docker ps -aqf name=nanome-chemical-preview)" ]; then
-    echo "removing exited container"
-    docker rm -f nanome-chemical-preview
+echo "./deploy.sh $*" > redeploy.sh
+chmod +x redeploy.sh
+
+existing=$(docker ps -aqf name=chemical-preview)
+if [ -n "$existing" ]; then
+    echo "removing existing container"
+    docker rm -f $existing
 fi
 
 docker run -d \
---name nanome-chemical-preview \
+--name chemical-preview \
 --restart unless-stopped \
 -e ARGS="$*" \
-nanome-chemical-preview
+chemical-preview

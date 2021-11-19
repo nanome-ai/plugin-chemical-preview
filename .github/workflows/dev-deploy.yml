@@ -21,4 +21,4 @@ jobs:
       - name: Push to Dev environment
         run: |
           git remote add starter-stack-dev starter-stack-dev:plugins/2d-chemical-preview.git
-          git push -u starter-stack-dev master
+          git push -f starter-stack-dev master

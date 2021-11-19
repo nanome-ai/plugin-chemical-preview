@@ -1,7 +1,7 @@
 name: Deploy to DEV.
 on:
   push:
-    branches: [dev-deploy-action]
+    branches: [master]
 
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-          ref: 'dev-deploy-action'
+          ref: 'master'
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
@@ -21,4 +21,4 @@ jobs:
       - name: Push to Dev environment
         run: |
           git remote add starter-stack-dev starter-stack-dev:plugins/2d-chemical-preview.git
-          git push -u starter-stack-dev dev-deploy-action
+          git push -u starter-stack-dev master

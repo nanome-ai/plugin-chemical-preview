@@ -7,8 +7,6 @@ jobs:
   deploy:
     name: Deploy to Dev
     runs-on: ubuntu-latest
-    environment: 
-      name: Dev
     steps:
       - uses: actions/checkout@v2
         with:
@@ -17,9 +15,9 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_SECRET_KEY }}
-          config: ${{ secrets.SSH_CONFIG}}
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          key: ${{ secrets.STARTER_STACK_DEV_SSH_SECRET_KEY }}
+          config: ${{ secrets.STARTER_STACK_DEV_SSH_CONFIG }}
+          known_hosts: ${{ secrets.STARTER_STACK_DEV_SSH_KNOWN_HOSTS }}
       - name: Push to Dev environment
         run: |
           git remote add dev starter-stack-dev:plugins/2d-chemical.git

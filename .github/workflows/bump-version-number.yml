@@ -65,10 +65,7 @@ jobs:
       - name: Get ECR repo name
         id: repoName
         run: |
-          prefix=nanome-ai/plugin-
-          git_repository="${{github.repository}}"
-          repo_name=${git_repository/#$prefix} 
-          echo $repo_name
+          repo_name="chemical-preview"
           echo "::set-output name=repo_name::$(echo $repo_name)"
       - name: Build and Push version number to ECR public
         id: build-and-push

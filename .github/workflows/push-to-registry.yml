@@ -11,9 +11,7 @@ jobs:
     - name: Get repo name
       id: repoName
       run: |
-        prefix=nanome-ai/plugin-
-        git_repository="${{github.repository}}"
-        repo_name=${git_repository/#$prefix} 
+        repo_name="chemical-preview"
         echo $repo_name
         echo "::set-output name=repo_name::$(echo $repo_name)"
     - name: Get short SHA

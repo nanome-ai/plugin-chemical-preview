@@ -2,7 +2,7 @@ import nanome
 from nanome.util.enums import Integrations
 
 from rdkit import Chem
-from rdkit.Chem import AllChem, Draw
+from rdkit.Chem import Draw
 
 import tempfile
 from cairosvg import svg2png
@@ -34,7 +34,7 @@ class ChemicalPreview(nanome.PluginInstance):
             return ''
 
         Chem.AssignStereochemistryFrom3D(mol)
-        AllChem.Compute2DCoords(mol)
+        Chem.rdCoordGen.AddCoords(mol)
         mol = Draw.rdMolDraw2D.PrepareMolForDrawing(mol)
 
         width, height = resolution

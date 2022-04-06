@@ -20,5 +20,5 @@ jobs:
           known_hosts: ${{ secrets.STARTER_STACK_DEV_SSH_KNOWN_HOSTS }}
       - name: Push to Dev environment
         run: |
-          git remote add starter-stack-dev starter-stack-dev:plugins/2d-chemical-preview.git
+          git remote add starter-stack-dev starter-stack-dev:plugins/chemical-preview.git
           git push -f starter-stack-dev master
